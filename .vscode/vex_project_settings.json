@@ -1,0 +1,17 @@
+{
+	"project": {
+		"name": "ARC-24",
+		"slot": 2,
+		"description": "Empty V5 C++ Project",
+		"platform": "V5",
+		"creationDate": "Wed, 29 Jan 2025 17:25:32 GMT",
+		"language": "cpp",
+		"cpp": {
+			"includePath": []
+		}
+	},
+	"extension": {
+		"version": "0.6.1",
+		"json": 1
+	}
+}
