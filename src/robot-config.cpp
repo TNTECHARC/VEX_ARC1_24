@@ -24,6 +24,7 @@ motor R3 = motor(PORT12, ratio6_1, true);
 motor R4 = motor(PORT2, ratio6_1, false);
 motor Lin = motor(PORT8, ratio6_1, true);
 motor Rin = motor(PORT3, ratio6_1, false);
+motor_group intake = motor_group(Lin, Rin);
 led mog = led(Brain.ThreeWirePort.A);
 
 // VEXcode generated functions

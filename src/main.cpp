@@ -156,112 +156,44 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-//lift desired poition degree times 7
 
 
-//Intake Thread Function
-void intaker() 
-{
-  bool intakePress = false;
+bool canStopSpin = true;
 
-  while (true) 
-  {
-    //When pressed L1 activate intake
-    if(Controller1.ButtonL1.pressing() && !intakePress)
-    {
-      Lin.setVelocity(100, pct);
-      Rin.setVelocity(100, pct);
-      Lin.spinFor((270 * 78 / 12), deg);
-      Rin.spinFor((270 * 78 / 12), deg);
-      intakePress = true;
-    }
-    else if(!Controller1.ButtonL1.pressing() && intakePress)
-    {
-      intakePress = false;
-    }
+void goToAlliance(){canStopSpin = false; claw.moveTo(ALLIANCE); canStopSpin = true;}
 
-    if(Controller1.ButtonX.pressing())
-    {
-      Lin.spin(reverse, 4, volt);
-      Rin.spin(reverse, 4, volt);
+void goToDefault(){if(!Controller1.ButtonR1.pressing()){canStopSpin = false; claw.moveTo(PASSIVE); canStopSpin = true;}}
+void spinIntake(){if(!Controller1.ButtonR1.pressing()){intake.spinFor(fwd, (78  /12 * 16 / 24) * 388, deg, 100, velocityUnits::pct);}}
 
-      wait(500, msec);
+void goalClamp(){if(Controller1.ButtonL1.pressing() && Controller1.ButtonR1.pressing()) {mog.set(!mog.value()); if(mog.value()) Controller1.rumble("-");}}
 
-      Lin.spin(reverse, 0, volt);
-      Rin.spin(reverse, 0, volt);
-    }
-        
-        wait(20, msec);
-        task::sleep(200);
-    }
-}
-
-//Mobile Goal Thread Function
-void mogg() 
-{
-  bool toggleMobileGoal = false;
-
-  while (true) 
-  {
-    //Toggle Mobile Goal Clamp
-    if(Controller1.ButtonL2.pressing() && !toggleMobileGoal)
-    {
-      mog.set(!mog.value());
-      toggleMobileGoal = true;
-    }
-    else if(!Controller1.ButtonL2.pressing() && toggleMobileGoal)
-    {
-      toggleMobileGoal = false;
-    }
-        
-        wait(20, msec);
-        task::sleep(200);
-    }
-}
-
-void clawFunc()
-{
-  if(claw.getCurrentState() == PASSIVE)
-        claw.moveTo(INTAKE);
-    else if(claw.getCurrentState() == INTAKE)
-        claw.moveTo(WALL);
-    else if(claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE)
-        claw.moveTo(PASSIVE);
-}
-
+void clampRing(){if(!Controller1.ButtonR1.pressing()) steak.set(!steak.value());}
 
 void usercontrol(void) {
-  //thread intakeThread(intaker);
-  //thread mogclamp(mogg);
-  //thread clawThread(clawFunc);
   claw.moveTo(PASSIVE);
 
-  Controller1.ButtonR1.pressed(clawFunc);
+  Controller1.ButtonL1.pressed(goToDefault);
+  Controller1.ButtonL1.pressed(spinIntake);
+  Controller1.ButtonL2.pressed(clampRing);
+
+  Controller1.ButtonR1.pressed(goalClamp);
+  Controller1.ButtonL1.pressed(goalClamp);
+
+  Controller1.ButtonA.pressed(goToAlliance);
+
 
   steak.set(false);
-
-  bool toggleClawState = false;
-  bool toggleArm = false;
 
   while (1) {
 
     chassis.control_arcade();
 
-    //CLAW IF statements
-    if(Controller1.ButtonR2.pressing() && claw.getCurrentState() == INTAKE && !toggleClawState)
-    {
-      steak.set(true);
-      toggleClawState = true;
-    }
-    else if(Controller1.ButtonR2.pressing() && (claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE) && !toggleClawState)
-    {
-      steak.set(false);
-      toggleClawState = true;
-    }
-    else if(Controller1.ButtonR2.pressing() && toggleClawState)
-    {
-      toggleClawState = false;
-    }
+    if(Controller1.ButtonR1.pressing() && !Controller1.ButtonL1.pressing())
+      Lift.spin(fwd, 12, volt);
+    else if(Controller1.ButtonR2.pressing())
+      Lift.spin(reverse, 12, volt);
+    else if(canStopSpin)
+      Lift.stop(hold);
 
 
     wait(20, msec); // Sleep the task for a short amount of time to

@@ -1,7 +1,7 @@
 #pragma once
 #include "vex.h"
-
-enum CLAWSTATES {START = 0, INTAKE = 10, SECOND = 123, THIRD = 160, PASSIVE = 80, WALL = 647, ALLIANCE = 580};
+//24 inch passive = 125
+enum CLAWSTATES {START = 0, INTAKE = 10, SECOND = 123, THIRD = 160, PASSIVE = 125, WALL = 647, ALLIANCE = 430};
 
 class ClawMech
 {

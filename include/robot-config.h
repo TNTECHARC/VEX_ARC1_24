@@ -18,6 +18,7 @@ extern motor R3;
 extern motor R4;
 extern motor Lin;
 extern motor Rin;
+extern motor_group intake;
 extern led mog;
 
 /**
