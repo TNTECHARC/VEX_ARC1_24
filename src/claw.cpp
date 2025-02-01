@@ -24,7 +24,6 @@ void ClawMech::setCurrentState(CLAWSTATES state)
 
 void ClawMech::moveTo(CLAWSTATES state)
 {
-    
     PID clawPID(state, kp, ki, kd, starti, settle_error, settle_time, timeout);
     
     while (!clawPID.is_settled()) 
@@ -42,7 +41,8 @@ void ClawMech::moveTo(CLAWSTATES state)
         lift.spin(forward, correction, voltageUnits::volt);
 
         // Sleep to control loop rate
-        task::sleep(10);
+        wait(20, msec);
     }
     lift.stop(hold);
+    currentState = state;
 }

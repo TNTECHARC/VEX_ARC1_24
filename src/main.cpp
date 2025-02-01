@@ -105,7 +105,7 @@ PORT3,     -PORT4,
 
 );
 
-ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 1.5, 500, 3000);
+ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 5, 100, 300);
 
 int current_auton_selection = 0;
 bool auto_started = false;
@@ -138,7 +138,7 @@ void autonomous(void) {
   // auto_started = true;
   // switch(current_auton_selection){ 
   //   case 0:
-      blue_route_skills();
+      red_route_skills();
 //       break;
 //     case 1:         
 //       red_route_match();
@@ -219,9 +219,24 @@ void mogg()
     }
 }
 
+void clawFunc()
+{
+  if(claw.getCurrentState() == PASSIVE)
+        claw.moveTo(INTAKE);
+    else if(claw.getCurrentState() == INTAKE)
+        claw.moveTo(WALL);
+    else if(claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE)
+        claw.moveTo(PASSIVE);
+}
+
+
 void usercontrol(void) {
-  thread intakeThread(intaker);
-  thread mogclamp(mogg);
+  //thread intakeThread(intaker);
+  //thread mogclamp(mogg);
+  //thread clawThread(clawFunc);
+  claw.moveTo(PASSIVE);
+
+  Controller1.ButtonR1.pressed(clawFunc);
 
   steak.set(false);
 
@@ -231,37 +246,6 @@ void usercontrol(void) {
   while (1) {
 
     chassis.control_arcade();
-
-    Controller1.ButtonR1.pressed([]() {
-    
-    });
-
-    //ARM IF statements
-    if(Controller1.ButtonR1.pressing() && claw.getCurrentState() == PASSIVE && !toggleArm)
-    {
-      vex::thread([](){
-        claw.moveTo(INTAKE);
-      }).detach();
-      toggleArm = true;
-    }
-    // else if(Controller1.ButtonR1.pressing() && claw.getCurrentState() == INTAKE && !toggleArm)
-    // {
-    //   vex::thread([](){
-    //     claw.moveTo(WALL);
-    //   }).detach();
-    //   toggleArm = true;
-    // }
-    // else if(Controller1.ButtonR1.pressing() && (claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE) && !toggleArm)
-    // {
-    //   vex::thread([](){
-    //     claw.moveTo(PASSIVE);
-    //   }).detach();
-    //   toggleArm = true;
-    // }
-    else if(Controller1.ButtonR1.pressing() && toggleArm)
-    {
-      toggleArm = false;
-    }
 
     //CLAW IF statements
     if(Controller1.ButtonR2.pressing() && claw.getCurrentState() == INTAKE && !toggleClawState)

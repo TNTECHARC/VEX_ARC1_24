@@ -1,8 +1,8 @@
 {
 	"project": {
-		"name": "ARC-24",
-		"slot": 6,
-		"description": "ARC1 Vex U 24 inch robot code\n",
+		"name": "ARC-15",
+		"slot": 7,
+		"description": "ARC1 Vex U 15 inch robot code\n",
 		"platform": "V5",
 		"creationDate": "Thu, 30 Jan 2025 00:44:00 GMT",
 		"language": "cpp",
