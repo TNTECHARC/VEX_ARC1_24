@@ -1,14 +1,15 @@
 {
 	"project": {
 		"name": "ARC-24",
-		"slot": 2,
-		"description": "Empty V5 C++ Project",
+		"slot": 6,
+		"description": "ARC1 Vex U 24 inch robot code\n",
 		"platform": "V5",
-		"creationDate": "Wed, 29 Jan 2025 17:25:32 GMT",
+		"creationDate": "Thu, 30 Jan 2025 00:44:00 GMT",
 		"language": "cpp",
 		"cpp": {
 			"includePath": []
-		}
+		},
+		"sdkVersion": "V5_20240802_15_00_00"
 	},
 	"extension": {
 		"version": "0.6.1",

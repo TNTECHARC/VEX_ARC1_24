@@ -1,38 +1,4 @@
 #include "vex.h"
-CLAWSTATES autonClaw = INTAKE;
-
-// Thread function for PID loop
-void autonpidLoop() {
-  
-  PID clawPID(autonClaw, 2.5, 0.0, 15, 0, 1.5, 500, 3000);
-
-  while (true) {
-
-      // Get the current position (this should come from a sensor, such as an encoder)
-      double currentPosition = (LLift.position(deg) + RLift.position(deg))/2;
-
-      // Calculate error
-      double error = autonClaw - currentPosition;
-      if(error <= 5 && error >= -5)
-        error = 0;
-      double correction = clawPID.compute(error);
-
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1, 1);
-      Brain.Screen.print(currentPosition);
-
-      correction = clamp(correction, -12, 12);
-
-      // Apply correction to motors
-        LLift.spin(forward, correction, voltageUnits::volt);
-        RLift.spin(forward, correction, voltageUnits::volt);
-
-      // Sleep to control loop rate
-      task::sleep(10);
-    }
-    LLift.setBrake(hold);
-    RLift.setBrake(hold);
-}
 
 /**
  * Resets the constants for auton movement.
@@ -163,70 +129,111 @@ void holonomic_odom_test(){
 }
 
 
-void red_route_match(){
-/*
-  thread autonLoop(autonpidLoop);
 
-  //intakestate = INTAKE , SECOND , THIRD , WALL , or ALLIANCE
-
-  //starts with preload
-  autonClaw = WALL;
-
-  //STEP ONE
-  //chassis.Gyro.setHeading(120, deg);
-  chassis.drive_distance(-8);
-
-  //Same time////////////////
-  chassis.drive_distance(-7);
-  mog.set(true);
-  //clawalliance
-  ///////////////////////////
- 
- 
-  chassis.turn_to_angle(180);
-  //intake for bottom ring
-  Rin.spin(fwd, 8, volt);
-  Lin.spin(fwd, 8, volt);
-  chassis.drive_distance(12);
-  //score on alliance stake
-  chassis.drive_distance(-12);
-
-
-  //STEP TWO
-  chassis.turn_to_angle(90);
-  //intake on (for bottom ring)
-  chassis.drive_distance(48);
-  chassis.turn_to_angle(135);
-  chassis.drive_distance(12);
-  //grabs top red ring (blue is on top of that stack) set clawthird
-  chassis.drive_distance(-10);
-  //lift claw
-  chassis.drive_distance(10);
-  //intakes bottom ring
-
-
-  //STEP THREE
-
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(0);
-  //set clawsecond
-  chassis.drive_distance(15);
-  //claw grab
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(5);
-  chassis.turn_to_angle(0);
-  //maybe do it with claw not intake for the last ring
-  chassis.drive_distance(27);
-
-
-  //STEP 4
-  chassis.drive_distance(-27);
-  chassis.turn_to_angle(-65);
-  chassis.drive_distance(20);
-  autonClaw = WALL;
-  chassis.drive_distance(20);
-
-  autonLoop.interrupt();
-*/
+void red_route_match()
+{
+  // vex::thread([](){
+  //   claw.moveTo(WALL);
+  // }).detach();
 }
 
+void red_route_skills(){
+
+      // vex::thread([](){
+      //   claw.moveTo(INTAKE);
+      // }).detach();
+
+    
+
+
+
+      
+
+
+    chassis.set_heading(305);
+    chassis.drive_distance(-21);
+    //clamp
+    chassis.turn_to_angle(245);    
+    chassis.drive_distance(11);
+    //spin intake
+    chassis.turn_to_angle(228);
+    chassis.drive_distance(21);
+    //spin intake
+
+
+    chassis.turn_to_angle(44);
+    chassis.drive_distance(44);
+    //spin intake
+    chassis.turn_to_angle(47);
+    chassis.drive_distance(28);
+    //spin intake
+    chassis.turn_to_angle(20);
+    chassis.drive_distance(-11);
+    chassis.turn_to_angle(47);
+    chassis.drive_distance(13);
+    //spin intake
+    chassis.drive_distance(-74);
+    //clamp release
+    chassis.turn_to_angle(63);
+    chassis.drive_distance(48);
+    chassis.turn_to_angle(266);
+    chassis.drive_distance(-27);
+    // chassis.turn_to_angle(232);
+    // chassis.drive_distance(6);
+    //clamp
+
+
+    //STEP TWO
+
+    //set claw to intake
+    chassis.turn_to_angle(223);
+    chassis.drive_distance(12);
+    //claw grab
+    //set claw to wall
+    chassis.turn_to_angle(223);
+    chassis.drive_distance(7);
+    chassis.turn_to_angle(180);
+    chassis.drive_distance(4);
+    //spin intake
+    chassis.drive_distance(6);
+    //score wall
+    chassis.turn_to_angle(60);
+    chassis.drive_distance(21);
+    //intake
+    chassis.turn_to_angle(48);
+    chassis.drive_distance(32);
+    //intake
+    chassis.turn_to_angle(164);
+    chassis.drive_distance(11);
+    //intake
+    chassis.turn_to_angle(143);
+    chassis.drive_distance(25);
+
+    //STEP THREE
+
+    chassis.turn_to_angle(358);
+    chassis.drive_distance(52);
+    //claw grab
+    //claw alliance
+    chassis.turn_to_angle(0);
+    chassis.drive_distance(8);
+    chassis.turn_to_angle(90);
+    //score
+    chassis.drive_distance(-12);
+    //clamp
+    chassis.turn_to_angle(0);
+    chassis.drive_distance(16);
+    //spin intake
+
+
+
+
+
+
+
+
+
+
+
+
+}

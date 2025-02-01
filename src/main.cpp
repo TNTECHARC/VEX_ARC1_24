@@ -1,42 +1,7 @@
-
 #include "vex.h"
 
 using namespace vex;
 competition Competition;
-CLAWSTATES clawState = INTAKE;
-
-// Thread function for PID loop
-void pidLoop() {
-  
-  PID clawPID(clawState, 2.5, 0.0, 15, 0, 1.5, 500, 3000);
-
-  while (true) {
-
-      // Get the current position (this should come from a sensor, such as an encoder)
-      double currentPosition = (LLift.position(deg) + RLift.position(deg))/2;
-
-      // Calculate error
-      double error = clawState - currentPosition;
-      if(error <= 5 && error >= -5)
-        error = 0;
-      double correction = clawPID.compute(error);
-
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1, 1);
-      Brain.Screen.print(currentPosition);
-
-      correction = clamp(correction, -12, 12);
-
-      // Apply correction to motors
-        LLift.spin(forward, correction, voltageUnits::volt);
-        RLift.spin(forward, correction, voltageUnits::volt);
-
-      // Sleep to control loop rate
-      task::sleep(10);
-    }
-    LLift.setBrake(hold);
-    RLift.setBrake(hold);
-}
 
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
@@ -140,6 +105,8 @@ PORT3,     -PORT4,
 
 );
 
+ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 1.5, 500, 3000);
+
 int current_auton_selection = 0;
 bool auto_started = false;
 
@@ -168,16 +135,15 @@ void pre_auton() {
  */
 
 void autonomous(void) {
-  auto_started = true;
-  switch(current_auton_selection){ 
-    case 0:
-      red_route_match();
-      break;
-    case 1:         
-      red_route_match();
-      break;
-    
- }
+  // auto_started = true;
+  // switch(current_auton_selection){ 
+  //   case 0:
+      red_route_skills();
+//       break;
+//     case 1:         
+//       red_route_match();
+//       break;
+//  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -254,15 +220,9 @@ void mogg()
 }
 
 void usercontrol(void) {
-  // User control code here, inside the loop
-  LLift.setBrake(hold);
-  RLift.setBrake(hold);
-
   thread intakeThread(intaker);
   thread mogclamp(mogg);
-  thread lifttask(pidLoop);
 
-  clawState = PASSIVE;
   steak.set(false);
 
   bool toggleClawState = false;
@@ -272,44 +232,44 @@ void usercontrol(void) {
 
     chassis.control_arcade();
 
+    Controller1.ButtonR1.pressed([]() {
+    
+    });
+
     //ARM IF statements
-    if(Controller1.ButtonR1.pressing() && clawState == PASSIVE && !toggleArm)
+    if(Controller1.ButtonR1.pressing() && claw.getCurrentState() == PASSIVE && !toggleArm)
     {
-      clawState = INTAKE;
+      vex::thread([](){
+        claw.moveTo(INTAKE);
+      }).detach();
       toggleArm = true;
     }
-    else if(Controller1.ButtonR1.pressing() && clawState == INTAKE && !toggleArm)
-    {
-      clawState = WALL;
-      toggleArm = true;
-    }
-    else if(Controller1.ButtonX.pressing() && clawState == WALL && !toggleArm)
-    {
-      clawState = ALLIANCE;
-      toggleArm = true;
-    }
-    else if(Controller1.ButtonX.pressing() && clawState == ALLIANCE && !toggleArm)
-    {
-      clawState = WALL;
-      toggleArm = true;
-    }
-    else if(Controller1.ButtonR1.pressing() && (clawState == WALL || clawState == ALLIANCE) && !toggleArm)
-    {
-      clawState = PASSIVE;
-      toggleArm = true;
-    }
+    // else if(Controller1.ButtonR1.pressing() && claw.getCurrentState() == INTAKE && !toggleArm)
+    // {
+    //   vex::thread([](){
+    //     claw.moveTo(WALL);
+    //   }).detach();
+    //   toggleArm = true;
+    // }
+    // else if(Controller1.ButtonR1.pressing() && (claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE) && !toggleArm)
+    // {
+    //   vex::thread([](){
+    //     claw.moveTo(PASSIVE);
+    //   }).detach();
+    //   toggleArm = true;
+    // }
     else if(Controller1.ButtonR1.pressing() && toggleArm)
     {
       toggleArm = false;
     }
 
     //CLAW IF statements
-    if(Controller1.ButtonR2.pressing() && clawState == INTAKE && !toggleClawState)
+    if(Controller1.ButtonR2.pressing() && claw.getCurrentState() == INTAKE && !toggleClawState)
     {
       steak.set(true);
       toggleClawState = true;
     }
-    else if(Controller1.ButtonR2.pressing() && (clawState == WALL || clawState == ALLIANCE) && !toggleClawState)
+    else if(Controller1.ButtonR2.pressing() && (claw.getCurrentState() == WALL || claw.getCurrentState() == ALLIANCE) && !toggleClawState)
     {
       steak.set(false);
       toggleClawState = true;

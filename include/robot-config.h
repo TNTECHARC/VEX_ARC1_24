@@ -20,8 +20,6 @@ extern motor Lin;
 extern motor Rin;
 extern led mog;
 
-enum CLAWSTATES {INTAKE = 10, SECOND = 123, THIRD = 160, PASSIVE = 80, WALL = 647, ALLIANCE = 580};
-
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 
