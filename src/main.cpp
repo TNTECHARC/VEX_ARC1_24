@@ -156,8 +156,6 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-
-
 bool canStopSpin = true;
 
 void goToAlliance(){canStopSpin = false; claw.moveTo(ALLIANCE); canStopSpin = true;}
@@ -169,17 +167,25 @@ void goalClamp(){if(Controller1.ButtonL1.pressing() && Controller1.ButtonR1.pres
 
 void clampRing(){if(!Controller1.ButtonR1.pressing()) steak.set(!steak.value());}
 
+void revIntake(){intake.spinFor(fwd, (78  /12 * 16 / 24) * 388, deg, 100, velocityUnits::pct);}
+
 void usercontrol(void) {
   claw.moveTo(PASSIVE);
 
+  // L Controls
   Controller1.ButtonL1.pressed(goToDefault);
   Controller1.ButtonL1.pressed(spinIntake);
   Controller1.ButtonL2.pressed(clampRing);
 
+  // Goal Clamp
   Controller1.ButtonR1.pressed(goalClamp);
   Controller1.ButtonL1.pressed(goalClamp);
 
+  // Alliance
   Controller1.ButtonA.pressed(goToAlliance);
+
+  // Reverse Intake incase it gets stuck
+  Controller1.ButtonDown.pressed(revIntake);
 
 
   steak.set(false);
