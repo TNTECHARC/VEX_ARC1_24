@@ -1,7 +1,7 @@
 {
 	"project": {
 		"name": "ARC-15",
-		"slot": 7,
+		"slot": 1,
 		"description": "ARC1 Vex U 15 inch robot code\n",
 		"platform": "V5",
 		"creationDate": "Thu, 30 Jan 2025 00:44:00 GMT",

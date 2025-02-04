@@ -134,16 +134,10 @@ void pre_auton() {
  * autons.cpp and declared in autons.h.
  */
 
+
+
 void autonomous(void) {
-  // auto_started = true;
-  // switch(current_auton_selection){ 
-  //   case 0:
-      red_route_skills();
-//       break;
-//     case 1:         
-//       red_route_match();
-//       break;
-//  }
+  blue_route_skills();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -217,6 +211,7 @@ int main() {
 
   // Run the pre-autonomous function.
   pre_auton();
+
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
