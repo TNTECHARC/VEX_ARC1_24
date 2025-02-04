@@ -161,16 +161,16 @@ bool canStopSpin = true;
 void goToAlliance(){canStopSpin = false; claw.moveTo(ALLIANCE); canStopSpin = true;}
 
 void goToDefault(){if(!Controller1.ButtonR1.pressing()){canStopSpin = false; claw.moveTo(PASSIVE); canStopSpin = true;}}
-void spinIntake(){if(!Controller1.ButtonR1.pressing()){intake.spinFor(fwd, (78  /12 * 16 / 24) * 388, deg, 100, velocityUnits::pct);}}
+void spinIntake(){if(!Controller1.ButtonR1.pressing()){intake.spinFor(fwd, (78  /12 * 16 / 24) * 385, deg, 100, velocityUnits::pct);}}
 
 void goalClamp(){if(Controller1.ButtonL1.pressing() && Controller1.ButtonR1.pressing()) {mog.set(!mog.value()); if(mog.value()) Controller1.rumble("-");}}
 
 void clampRing(){if(!Controller1.ButtonR1.pressing()) steak.set(!steak.value());}
 
-void revIntake(){intake.spinFor(fwd, (78  /12 * 16 / 24) * 388, deg, 100, velocityUnits::pct);}
+void revIntake(){intake.spinFor(reverse, (78  /12 * 16 / 24) * 385, deg, 100, velocityUnits::pct);}
 
 void usercontrol(void) {
-  claw.moveTo(PASSIVE);
+  thread clawStartingPosition = thread(goToDefault);
 
   // L Controls
   Controller1.ButtonL1.pressed(goToDefault);
