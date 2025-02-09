@@ -1,5 +1,6 @@
 #include "vex.h"
 
+
 /**
  * Resets the constants for auton movement.
  * Modify these to change the default behavior of functions like
@@ -96,7 +97,7 @@ void odom_test(){
     Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
     Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-    task::sleep(20);
+   // task::sleep(20);
   }
 }
 
@@ -153,16 +154,14 @@ void blue_route_match()
   // }).detach();
 }
 
+
+void rushg()
+{
+  waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() )/2) >= 19.5);
+  rush.set(false);
+}
+
 void blue_route_skills(){
-
-  thread test = thread(autonMoveClaw);
-  
-
-
- 
-
-
-
     
   
   chassis.set_heading(90);
@@ -231,16 +230,6 @@ void blue_route_skills(){
   chassis.drive_distance(-10);
   //drop goal
  
- 
-
-
-
-
-
-
-
-
-
 
 
 }
