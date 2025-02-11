@@ -323,6 +323,51 @@ void Drive::drive_distance(float distance, float heading, float drive_max_voltag
   }
 }
 
+void Drive::drive_double_distance(float distance1, float distance2)
+{
+  float heading = get_absolute_heading();
+  PID drivePID(distance1, drive_kp, drive_ki, drive_kd, drive_starti, 1, 10, drive_timeout);
+  PID headingPID(reduce_negative_180_to_180(heading - get_absolute_heading()), heading_kp, heading_ki, heading_kd, heading_starti);
+  float start_average_position = (get_left_position_in()+get_right_position_in())/2.0;
+  float average_position = start_average_position;
+
+
+  while(drivePID.is_settled() == false){
+    average_position = (get_left_position_in()+get_right_position_in())/2.0;
+    float drive_error = distance1+start_average_position-average_position;
+    float heading_error = reduce_negative_180_to_180(heading - get_absolute_heading());
+    float drive_output = drivePID.compute(drive_error);
+    float heading_output = headingPID.compute(heading_error);
+
+    drive_output = clamp(drive_output, -drive_max_voltage, drive_max_voltage);
+    heading_output = clamp(heading_output, -heading_max_voltage, heading_max_voltage);
+
+    drive_with_voltage(drive_output+heading_output, drive_output-heading_output);
+    task::sleep(10);
+  }
+
+  heading = get_absolute_heading();
+  PID drive2PID(distance2, drive_kp, drive_ki, drive_kd, drive_starti, drive_settle_error, drive_settle_time, drive_timeout);
+  PID heading2PID(reduce_negative_180_to_180(heading - get_absolute_heading()), heading_kp, heading_ki, heading_kd, heading_starti);
+  start_average_position = (get_left_position_in()+get_right_position_in())/2.0;
+  average_position = start_average_position;
+
+  while(drive2PID.is_settled() == false){
+    average_position = (get_left_position_in()+get_right_position_in())/2.0;
+    float drive_error = distance2+start_average_position-average_position;
+    float heading_error = reduce_negative_180_to_180(heading - get_absolute_heading());
+    float drive_output = drive2PID.compute(drive_error);
+    float heading_output = heading2PID.compute(heading_error);
+
+    drive_output = clamp(drive_output, -drive_max_voltage, drive_max_voltage);
+    heading_output = clamp(heading_output, -heading_max_voltage, heading_max_voltage);
+
+    drive_with_voltage(drive_output+heading_output, drive_output-heading_output);
+    task::sleep(10);
+  }
+
+}
+
 /**
  * Turns to a given angle with only one side of the drivetrain.
  * Like turn_to_angle(), is optimized for turning the shorter

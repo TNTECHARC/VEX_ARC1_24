@@ -145,20 +145,24 @@ void autonMoveClaw()
 }
 
 
-void blue_route_match()
-{
-  thread test = thread(autonMoveClaw);
-  
-  // vex::thread([](){
-  //   claw.moveTo(WALL);
-  // }).detach();
-}
-
-
 void rushg()
 {
-  waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() )/2) >= 19.5);
+  waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() )/2) >= 23.5);
   rush.set(false);
+}
+
+void stringIntake()
+{
+  string.spinFor(forward, 0.75, sec, 100, velocityUnits::pct);
+}
+
+void blueRouteLeftGoal()
+{
+  thread autonClaw = thread(autonMoveClaw);
+  thread rushMech = thread(rushg);
+  thread stringSpin = thread(stringIntake);
+  rush.set(true);
+  chassis.drive_double_distance(24, -20);
 }
 
 void blue_route_skills(){

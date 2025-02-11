@@ -13,7 +13,8 @@ extern ClawMech claw;
 
 
 void default_constants();
+void stringIntake();
 
 
-void blue_route_match();
+void blueRouteLeftGoal();
 void blue_route_skills();

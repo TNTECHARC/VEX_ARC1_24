@@ -138,7 +138,8 @@ void pre_auton() {
 
 
 void autonomous(void) {
-  blue_route_skills();
+  //blue_route_skills();
+  blueRouteLeftGoal();
 }
 
 /*---------------------------------------------------------------------------*/
