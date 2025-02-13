@@ -35,7 +35,7 @@ void ClawMech::moveTo(CLAWSTATES state)
         double error = state - currentPosition;
         double correction = clawPID.compute(error);
 
-        correction = clamp(correction, -12, 12);
+        correction = clamp(correction, -maxVoltage, maxVoltage);
 
         // Apply correction to motors
         lift.spin(forward, correction, voltageUnits::volt);

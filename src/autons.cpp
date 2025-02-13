@@ -133,8 +133,8 @@ CLAWSTATES autonState = START;
 
 void autonMoveClaw()
 {
-  
-  CLAWSTATES temp = autonState;
+  autonState = START;
+  CLAWSTATES temp = START;
   while(true)
   {
     claw.moveTo(autonState);
@@ -147,11 +147,8 @@ void autonMoveClaw()
 
 void rushg()
 {
-  float startingPosition = chassis.get_left_position_in() + chassis.get_right_position_in();
   wait(100, msec);
   rush.set(true);
-  // waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() ) / 2) >= 20 + startingPosition);
-  // rush.set(false);
 }
 
 void stringIntake()
@@ -159,38 +156,83 @@ void stringIntake()
   string.spinFor(forward, 0.75, sec, 100, velocityUnits::pct);
 }
 
-void blueRouteLeftGoal()
+void blueRouteRightGoal()
 {
   thread autonClaw = thread(autonMoveClaw);
   thread rushMech = thread(rushg);
+  thread intakeThread = thread(intakee);
   thread stringSpin = thread(stringIntake);
+
   // Rush Mobile Goal
-  chassis.drive_distance(24);
+  chassis.drive_distance(23.5);
   rush.set(false);
-  chassis.drive_distance(-30);
+  chassis.drive_distance(-30.5);
   rush.set(true);
+  wait(300, msec);
   chassis.drive_distance(-5);
   rush.set(false);
   wait(100, msec);
 
   // Grab Mobile Goal
   chassis.turn_to_angle(180);
-  wait(150, msec);
+  wait(200, msec);
   chassis.drive_distance(-18);
   chassis.drive_distance(-10, 180, 3, 12);
   mog.set(true);
-  wait(100, msec);
+  wait(300, msec);
 
   // Pick up first ring
   chassis.drive_distance(10);
-  chassis.turn_to_angle(32, 6);
-  chassis.drive_distance(15, 32, 6, 12);
+  chassis.turn_to_angle(35, 6);
+  chassis.drive_distance(15, 35, 6, 12);
+  wait(200, msec);
   steak.set(true);
   wait(200, msec);
+  chassis.drive_distance(-2);
   autonState = THIRD;
-  chassis.drive_distance(7);
-  
+  wait(300, msec);
+  chassis.drive_distance(17, 35, 5, 12);
+  wait(50, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
   steak.set(false);
+  chassis.drive_distance(-8);
+  autonState = PASSIVE;
+
+  // Pick up second ring
+  chassis.turn_to_angle(150);
+  chassis.drive_distance(20, 150, 8, 12);
+  intakeOn = true;
+  chassis.drive_distance(3, 150, 8, 12);
+  wait(300, msec);
+  intakeOn = false;
+
+  // edging Corner
+  chassis.drive_distance(-1);
+  chassis.turn_to_angle(110);
+  autonState = THIRD;
+  chassis.drive_distance(18, 110, 5, 12);
+  steak.set(true);
+  wait(300,msec);
+  chassis.drive_distance(-5.5, 110, 2, 12);
+
+  claw.maxVoltage = 8;
+  autonState = ALLIANCE;
+  wait(200, msec);
+  chassis.drive_distance(6.5);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  chassis.drive_distance(-15);
+  autonState = PASSIVE;
+  wait(500,msec);
+  steak.set(false);
+  wait(300, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  
 
 }
 

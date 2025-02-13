@@ -16,5 +16,5 @@ void default_constants();
 void stringIntake();
 
 
-void blueRouteLeftGoal();
+void blueRouteRightGoal();
 void blue_route_skills();
