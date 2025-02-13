@@ -11,13 +11,13 @@
 
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(12, 1.5, 0, 10, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(12, .4, .03, 3, 15);
+  chassis.set_turn_constants(10, .4, .03, 3, 15);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
 
   // Each exit condition set is in the form of (settle_error, settle_time, timeout).
-  chassis.set_drive_exit_conditions(1.5, 300, 5000);
+  chassis.set_drive_exit_conditions(1.5, 50, 5000);
   chassis.set_turn_exit_conditions(1, 300, 3000);
   chassis.set_swing_exit_conditions(1, 300, 3000);
 }
@@ -147,8 +147,11 @@ void autonMoveClaw()
 
 void rushg()
 {
-  waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() )/2) >= 23.5);
-  rush.set(false);
+  float startingPosition = chassis.get_left_position_in() + chassis.get_right_position_in();
+  wait(100, msec);
+  rush.set(true);
+  // waitUntil(((chassis.get_left_position_in() + chassis.get_right_position_in() ) / 2) >= 20 + startingPosition);
+  // rush.set(false);
 }
 
 void stringIntake()
@@ -161,8 +164,34 @@ void blueRouteLeftGoal()
   thread autonClaw = thread(autonMoveClaw);
   thread rushMech = thread(rushg);
   thread stringSpin = thread(stringIntake);
+  // Rush Mobile Goal
+  chassis.drive_distance(24);
+  rush.set(false);
+  chassis.drive_distance(-30);
   rush.set(true);
-  chassis.drive_double_distance(24, -20);
+  chassis.drive_distance(-5);
+  rush.set(false);
+  wait(100, msec);
+
+  // Grab Mobile Goal
+  chassis.turn_to_angle(180);
+  wait(150, msec);
+  chassis.drive_distance(-18);
+  chassis.drive_distance(-10, 180, 3, 12);
+  mog.set(true);
+  wait(100, msec);
+
+  // Pick up first ring
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(32, 6);
+  chassis.drive_distance(15, 32, 6, 12);
+  steak.set(true);
+  wait(200, msec);
+  autonState = THIRD;
+  chassis.drive_distance(7);
+  
+  steak.set(false);
+
 }
 
 void blue_route_skills(){
@@ -233,7 +262,5 @@ void blue_route_skills(){
   chassis.turn_to_angle(237);
   chassis.drive_distance(-10);
   //drop goal
- 
-
 
 }
