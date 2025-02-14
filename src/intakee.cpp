@@ -44,12 +44,12 @@ void intakee()
       wait(300,msec);
       do 
       {              
-        if(intake.velocity(pct) < 20)
+        if(intake.velocity(pct) < 1)
         {
           stuck = !stuck;
           intakeOn = false;
         }
-        wait(5, msec);                                                             
+        wait(39, msec);                                                             
       } while (!(intakeOn == false));
       //waitUntil(intakeOn == false);
       intake.stop();
