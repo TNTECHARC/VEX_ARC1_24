@@ -44,7 +44,7 @@ void intakee()
       wait(300,msec);
       do 
       {              
-        if(intake.velocity(pct) < 1)
+        if(intake.power(powerUnits::watt) == 0)
         {
           stuck = !stuck;
           intakeOn = false;

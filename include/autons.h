@@ -19,3 +19,6 @@ void blueRouteMiddleGoal();
 void blueRouteLeftGoal();
 void blueRouteRightGoal();
 void blue_route_skills();
+
+
+void redRightAuto();

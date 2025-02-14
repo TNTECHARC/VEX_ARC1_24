@@ -121,6 +121,9 @@ void pre_auton() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   default_constants();
+  LLift.setPosition(0,deg);
+  RLift.setPosition(0,deg);
+  Lift.setPosition(0,deg);
   inrot.setPosition(0,deg);
   chassis.Gyro.calibrate();
   waitUntil(!chassis.Gyro.isCalibrating());
@@ -140,7 +143,8 @@ void pre_auton() {
 void autonomous(void) {
   //blue_route_skills();
   //blueRouteRightGoal();
-  blueRouteMiddleGoal();
+  //blueRouteMiddleGoal();
+  redRightAuto();
 }
 
 /*---------------------------------------------------------------------------*/

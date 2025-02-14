@@ -163,6 +163,7 @@ void blueRouteMiddleGoal()
   thread intakeThread = thread(intakee);
   thread stringSpin = thread(stringIntake);
 
+
   // Rush Mobile Goal
   chassis.drive_distance(24.5);
   rush.set(false);
@@ -233,31 +234,52 @@ void blueRouteMiddleGoal()
   wait(300,msec);
   chassis.drive_distance(-5.5, 195, 2, 12);
 
-  claw.maxVoltage = 8;
+  //claw.maxVoltage = 8;
   autonState = ALLIANCE;
   wait(200, msec);
-  chassis.drive_distance(6.5);
-  intakeOn = true;
-  wait(300, msec);
-  intakeOn = false;
+  chassis.drive_distance(6.7);
+  //intakeOn = true;
+  intakeTarget = inrot.position(deg) + 500;
+  wait(220, msec);
+  //intakeOn = false;
+  //intakeOn = true;
   chassis.drive_distance(-30);
+  intakeOn = true;
+  wait(800,msec);
   autonState = PASSIVE;
+  intakeOn = false;
   wait(500,msec);
   steak.set(false);
   wait(300, msec);
   intakeOn = true;
-  wait(300, msec);
+  wait(600, msec);
+  //intakeOn = false;
+  //claw.maxVoltage = 12;
+  //wait(200, msec);
   intakeOn = false;
-  claw.maxVoltage = 12;
-  wait(200, msec);
 
   // Sixth Ring pov pro coding!!!!!!!!!!!!!!
-  chassis.turn_to_angle(110);
-  chassis.drive_distance(24);
-  wait(300, msec);
+  chassis.turn_to_angle(107);
+  chassis.drive_distance(22);
+  wait(200,msec);
   intakeOn = true;
+
+  chassis.drive_distance(4);
   wait(300, msec);
   intakeOn = false;
+  chassis.drive_distance(-26);
+  chassis.turn_to_angle(195-180);
+  mog.set(false);
+  // wait(500,msec);
+  // chassis.drive_distance(-34);
+  // chassis.drive_distance(20);
+  autonState = SHOVE;
+  chassis.drive_distance(6);
+  chassis.turn_to_angle(195);
+  chassis.drive_distance(38);
+  chassis.drive_distance(-30);
+  
+
 
 }
 
@@ -443,4 +465,127 @@ void blue_route_skills(){
   chassis.drive_distance(-10);
   //drop goal
 
+}
+
+
+
+
+void redRightAuto()
+{
+  thread autonClaw = thread(autonMoveClaw);
+  thread rushMech = thread(rushg);
+  thread intakeThread = thread(intakee);
+  thread stringSpin = thread(stringIntake);
+
+  autonState = START;
+
+  // Rush Mobile Goal
+  chassis.drive_distance(23.5);
+  rush.set(false);
+  chassis.drive_distance(-30.5);
+  rush.set(true);
+  wait(300, msec);
+  chassis.drive_distance(-5);
+  rush.set(false);
+  wait(100, msec);
+
+  // Grab Mobile Goal
+  chassis.turn_to_angle(180);
+  wait(200, msec);
+  chassis.drive_distance(-18);
+  chassis.drive_distance(-10, 180, 3, 12);
+  mog.set(true);
+  wait(300, msec);
+
+  // Pick up first ring
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(34.1, 6);
+  chassis.drive_distance(15, 35, 6, 12);
+  wait(200, msec);
+  steak.set(true);
+  wait(200, msec);
+  chassis.drive_distance(-2);
+  autonState = THIRD;
+  wait(300, msec);
+  chassis.drive_distance(14, 35, 5, 12);
+  wait(50, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  steak.set(false);
+  chassis.drive_distance(-8);
+  autonState = PASSIVE;
+
+  // Pick up second ring
+  chassis.turn_to_angle(150);
+  chassis.drive_distance(20, 150, 8, 12);
+  intakeOn = true;
+  chassis.drive_distance(3, 150, 8, 12);
+  wait(300, msec);
+  intakeOn = false;
+
+  // edging Corner
+  chassis.drive_distance(-1.5);
+  chassis.turn_to_angle(110);
+  autonState = THIRD;
+  chassis.drive_distance(18.9, 110, 5, 12);
+
+
+
+  // steak.set(true);
+  // wait(300,msec);
+  // chassis.drive_distance(-5.5, 110, 2, 12);
+
+  // claw.maxVoltage = 8;
+  // autonState = ALLIANCE;
+  // wait(200, msec);
+  // chassis.drive_distance(6.5);
+  // intakeOn = true;
+  // wait(300, msec);
+  // intakeOn = false;
+
+  steak.set(true);
+  wait(300,msec);
+  chassis.drive_distance(-5.7, 110, 2, 12);
+
+  claw.maxVoltage = 8;
+  autonState = ALLIANCE;
+  wait(200, msec);
+  chassis.drive_distance(6.9);
+  //intakeOn = true;
+  intakeTarget = inrot.position(deg) + 500;
+  wait(220, msec);
+  //intakeOn = false;
+  //intakeOn = true;
+
+
+
+
+  chassis.drive_distance(-15);
+  intakeOn = true;
+  wait(700,msec);
+  intakeOn = false;
+  claw.maxVoltage = 12;
+  autonState = PASSIVE;
+  wait(500,msec);
+  steak.set(false);
+  wait(300, msec);
+  intakeOn = true;
+  wait(700, msec);
+  intakeOn = false;
+
+  claw.maxVoltage = 12;
+
+  // Last Ring
+  chassis.turn_to_angle(205);
+  chassis.drive_distance(10);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+
+  // Go to ladder
+  chassis.turn_to_angle(300);
+  autonState = WALL;
+  wait(1, sec);
+  chassis.drive_distance(46);
 }
