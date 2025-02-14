@@ -23,6 +23,7 @@ extern motor_group intake;
 extern led mog;
 extern led rush;
 extern rotation inrot;
+extern led doinker;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

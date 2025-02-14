@@ -156,6 +156,129 @@ void stringIntake()
   string.spinFor(forward, 0.75, sec, 100, velocityUnits::pct);
 }
 
+void blueRouteMiddleGoal()
+{
+  thread autonClaw = thread(autonMoveClaw);
+  thread rushMech = thread(rushg);
+  thread intakeThread = thread(intakee);
+  thread stringSpin = thread(stringIntake);
+
+  // Rush Mobile Goal
+  chassis.drive_distance(24.5);
+  rush.set(false);
+  chassis.drive_distance(-40);
+  rush.set(true);
+  wait(300, msec);
+  chassis.drive_distance(-5);
+  rush.set(false);
+  wait(100, msec);
+
+  // Grab Mobile Goal
+  chassis.turn_to_angle(180);
+  wait(200, msec);
+  chassis.drive_distance(-18);
+  chassis.drive_distance(-10, 180, 3, 12);
+  mog.set(true);
+  wait(300, msec);
+
+  // First Ring
+  chassis.turn_to_angle(260);
+  chassis.drive_distance(24, 260, 6, 12);
+  wait(200, msec);
+  steak.set(true);
+  wait(200, msec);
+  chassis.drive_distance(-2);
+  autonState = THIRD;
+  wait(300, msec);
+  chassis.drive_distance(15, 260, 5, 12);
+  wait(50, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  //steak.set(false);
+  chassis.drive_distance(-6);
+  autonState = WALL;
+
+  // Second Ring
+  chassis.turn_to_angle(322);
+  chassis.drive_distance(10);
+  doinker.set(true);
+  wait(500, msec);
+  steak.set(false);
+  autonState = PASSIVE;
+  chassis.drive_distance(-10, 322, 12, 12);
+  wait(300, msec);
+  chassis.drive_distance(-15, 280, 12, 12);
+  doinker.set(false);
+  chassis.drive_distance(13, 250, 12, 12);
+  wait(50, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  wait(500, msec);
+
+  // Third Ring 
+  chassis.turn_to_angle(129);
+  chassis.drive_distance(16);
+  wait(50, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+
+  // Ring Corner
+  chassis.turn_to_angle(195);
+  autonState = THIRD;
+  chassis.drive_distance(15.75, 195, 5, 12);
+  steak.set(true);
+  wait(300,msec);
+  chassis.drive_distance(-5.5, 195, 2, 12);
+
+  claw.maxVoltage = 8;
+  autonState = ALLIANCE;
+  wait(200, msec);
+  chassis.drive_distance(6.5);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  chassis.drive_distance(-30);
+  autonState = PASSIVE;
+  wait(500,msec);
+  steak.set(false);
+  wait(300, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+  claw.maxVoltage = 12;
+  wait(200, msec);
+
+  // Sixth Ring pov pro coding!!!!!!!!!!!!!!
+  chassis.turn_to_angle(110);
+  chassis.drive_distance(24);
+  wait(300, msec);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+
+}
+
+void blueRouteLeftGoal()
+{
+  thread autonClaw = thread(autonMoveClaw);
+  thread rushMech = thread(rushg);
+  thread intakeThread = thread(intakee);
+  thread stringSpin = thread(stringIntake);
+
+  // Rush Mobile Goal
+  chassis.drive_distance(23.5);
+  rush.set(false);
+  chassis.drive_distance(-30.5);
+  rush.set(true);
+  wait(300, msec);
+  chassis.drive_distance(-5);
+  rush.set(false);
+  wait(100, msec);
+}
+
 void blueRouteRightGoal()
 {
   thread autonClaw = thread(autonMoveClaw);
@@ -232,6 +355,21 @@ void blueRouteRightGoal()
   intakeOn = true;
   wait(300, msec);
   intakeOn = false;
+
+  claw.maxVoltage = 12;
+
+  // Last Ring
+  chassis.turn_to_angle(195);
+  chassis.drive_distance(10);
+  intakeOn = true;
+  wait(300, msec);
+  intakeOn = false;
+
+  // Go to ladder
+  chassis.turn_to_angle(285);
+  autonState = WALL;
+  wait(1, sec);
+  chassis.drive_distance(40);
   
 
 }

@@ -29,6 +29,7 @@ motor_group intake = motor_group(Lin, Rin);
 led mog = led(Brain.ThreeWirePort.A);
 led rush = led(Brain.ThreeWirePort.H);
 rotation inrot = rotation(PORT5,true);
+led doinker = led(Brain.ThreeWirePort.D);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
