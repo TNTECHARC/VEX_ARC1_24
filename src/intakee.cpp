@@ -34,6 +34,7 @@ void intakeePID() {
 double oneRot = 2310.18;
 void intakee()
 {
+  bool stuck = false;
   while(1)
   {
     
@@ -41,9 +42,21 @@ void intakee()
     {
       intake.spin(fwd,100,pct);
       wait(300,msec);
-      waitUntil(intakeOn == false);
+      do 
+      {              
+        if(intake.velocity(pct) < 20)
+        {
+          stuck = !stuck;
+          intakeOn = false;
+        }
+        wait(5, msec);                                                             
+      } while (!(intakeOn == false));
+      //waitUntil(intakeOn == false);
       intake.stop();
-      intakeTarget = ((((int)(inrot.position(deg) / oneRot))+1)*oneRot);
+      if(!stuck)
+        intakeTarget = ((((int)(inrot.position(deg) / oneRot))+1)*oneRot);
+      else
+        intakeTarget = (((int)(inrot.position(deg) / oneRot))*oneRot);
     }
     else
       intakeePID();
