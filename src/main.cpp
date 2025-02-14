@@ -143,8 +143,8 @@ void pre_auton() {
 void autonomous(void) {
   //blue_route_skills();
   //blueRouteRightGoal();
-  //blueRouteMiddleGoal();
-  redRightAuto();
+  blueRouteMiddleGoal();
+  //redRightAuto();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -212,11 +212,11 @@ void usercontrol(void) {
     //Rush Mech Test
     if(Controller1.ButtonB.pressing())
     {
-      rush.set(true);
+      doinker.set(true);
     }
     else
     {
-      rush.set(false);
+      doinker.set(false);
     }
 
 

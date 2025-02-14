@@ -144,12 +144,13 @@ void autonMoveClaw()
   }
 }
 
-
 void rushg()
 {
   wait(100, msec);
   rush.set(true);
 }
+
+
 
 void stringIntake()
 {
@@ -259,25 +260,37 @@ void blueRouteMiddleGoal()
   intakeOn = false;
 
   // Sixth Ring pov pro coding!!!!!!!!!!!!!!
-  chassis.turn_to_angle(107);
-  chassis.drive_distance(22);
-  wait(200,msec);
-  intakeOn = true;
+  // chassis.turn_to_angle(107);
+  // chassis.drive_distance(22);
+  // wait(200,msec);
+  // intakeOn = true;
 
-  chassis.drive_distance(4);
-  wait(300, msec);
-  intakeOn = false;
-  chassis.drive_distance(-26);
-  chassis.turn_to_angle(195-180);
+  // chassis.drive_distance(4);
+  // wait(300, msec);
+  // intakeOn = false;
+  // chassis.drive_distance(-26);
+  // chassis.turn_to_angle(195-180);
+  // mog.set(false);
+  // // wait(500,msec);
+  // // chassis.drive_distance(-34);
+  // // chassis.drive_distance(20);
+  // autonState = SHOVE;
+  // chassis.drive_distance(6);
+  // chassis.turn_to_angle(195);
+  // chassis.drive_distance(38);
+  // autonState = WALL;
+  // chassis.drive_distance(-57);
+  wait(200,msec);
+  chassis.turn_to_angle(195+180);
+
   mog.set(false);
-  // wait(500,msec);
-  // chassis.drive_distance(-34);
-  // chassis.drive_distance(20);
   autonState = SHOVE;
-  chassis.drive_distance(6);
+  chassis.drive_distance(10);
   chassis.turn_to_angle(195);
-  chassis.drive_distance(38);
-  chassis.drive_distance(-30);
+  chassis.drive_distance(40);
+  autonState = WALL;
+  chassis.drive_distance(-64, 200);
+
   
 
 
