@@ -145,6 +145,7 @@ void autonomous(void) {
   //blueRouteRightGoal();
   blueRouteMiddleGoal();
   //redRightAuto();
+  RedRouteMiddleGoal();
 }
 
 /*---------------------------------------------------------------------------*/

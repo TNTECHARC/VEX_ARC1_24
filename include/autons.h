@@ -22,3 +22,4 @@ void blue_route_skills();
 
 
 void redRightAuto();
+void RedRouteMiddleGoal();
