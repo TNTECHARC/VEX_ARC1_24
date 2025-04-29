@@ -222,9 +222,21 @@ void usercontrol(void) {
 
 
 
-    Brain.Screen.clearLine();
-    Brain.Screen.setCursor(1,1);
-    Brain.Screen.print(inrot.position(deg));
+    // Take a snapshot of the red objects detected by 
+    // the AI Vision Sensor.
+    aiVision.takeSnapshot(Green);
+
+    // Clear the screen/reset so that we can display 
+    // new information.
+    Brain.Screen.clearScreen();
+    Brain.Screen.setCursor(1, 1);
+
+    // Print the largest detected object's CenterX
+    // coordinate to the Brain's screen.
+    Brain.Screen.print("Object Count: %d", aiVision.objectCount);
+    Brain.Screen.print("This is a test");
+    // Wait 0.5 seconds before repeating the loop and
+    // taking a new snapshot.
 
 
     wait(20, msec); // Sleep the task for a short amount of time to

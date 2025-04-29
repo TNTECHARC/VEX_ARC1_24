@@ -10,7 +10,7 @@ ClawMech::ClawMech(motor_group lift, led grab, float kp, float ki, float kd, flo
     settle_error(settle_error),
     settle_time(settle_time),
     timeout(timeout)
-{}
+{lift.resetPosition();}
 
 CLAWSTATES ClawMech::getCurrentState()
 {
