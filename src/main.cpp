@@ -220,27 +220,14 @@ void usercontrol(void) {
       doinker.set(false);
     }
 
-
-
-    // Take a snapshot of the red objects detected by 
-    // the AI Vision Sensor.
-    aiVision.takeSnapshot(Green);
-
-    // Clear the screen/reset so that we can display 
-    // new information.
-    Brain.Screen.clearScreen();
     Brain.Screen.setCursor(1, 1);
-
-    // Print the largest detected object's CenterX
-    // coordinate to the Brain's screen.
-    Brain.Screen.print("Object Count: %d", aiVision.objectCount);
-    Brain.Screen.print("This is a test");
-    // Wait 0.5 seconds before repeating the loop and
-    // taking a new snapshot.
-
+    Brain.Screen.print("Goal Number:  ");
+    Brain.Screen.print(find_Local_Goals_In_My_Area());
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
+
+    Brain.Screen.clearScreen();
   }
 }
 

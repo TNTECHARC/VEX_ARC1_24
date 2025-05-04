@@ -26,6 +26,7 @@
 #include "JAR-Template/PID.h"
 #include "autons.h"
 #include "intakee.h"
+#include "ai.h"
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

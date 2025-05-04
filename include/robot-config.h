@@ -25,8 +25,9 @@ extern led rush;
 extern rotation inrot;
 extern led doinker;
 
-extern aivision::colordesc Green;
-extern aivision aiVision;
+extern aivision::colordesc Goal;
+extern aivision ai;
+
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
