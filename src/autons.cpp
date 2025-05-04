@@ -1,6 +1,4 @@
 #include "vex.h"
-
-
 /**
  * Resets the constants for auton movement.
  * Modify these to change the default behavior of functions like
@@ -290,10 +288,6 @@ void blueRouteMiddleGoal()
   chassis.drive_distance(40);
   autonState = WALL;
   chassis.drive_distance(-64, 200);
-
-  
-
-
 }
 
 void blueRouteLeftGoal()
@@ -739,7 +733,21 @@ void RedRouteMiddleGoal()
   autonState = WALL;
   chassis.drive_distance(-64, -200);
 
+}
+
+void autonAITest()
+{
+  chassis.drive_distance(24);
+
+  while (1)
+  {
+    Brain.Screen.setCursor(1, 1);
+    Brain.Screen.print("Goal Number:  ");
+    Brain.Screen.print(find_Local_Goals_In_My_Area());
+
+    wait(20, msec);
+
+    Brain.Screen.clearScreen();
+  }
   
-
-
 }

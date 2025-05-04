@@ -1,6 +1,6 @@
 {
 	"project": {
-		"name": "RedMiddleWP(FLIP)",
+		"name": "AISensor_Test",
 		"slot": 8,
 		"description": "ARC1 Vex U 15 inch robot code\n",
 		"platform": "V5",

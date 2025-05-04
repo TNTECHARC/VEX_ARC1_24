@@ -143,9 +143,11 @@ void pre_auton() {
 void autonomous(void) {
   //blue_route_skills();
   //blueRouteRightGoal();
-  blueRouteMiddleGoal();
+  //blueRouteMiddleGoal();
   //redRightAuto();
-  RedRouteMiddleGoal();
+  //RedRouteMiddleGoal();
+
+  autonAITest();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -172,6 +174,7 @@ void clampRing(){if(!Controller1.ButtonR1.pressing()) steak.set(!steak.value());
 void revIntake(){intake.spinFor(reverse, (78  /12 * 16 / 24) * 385, deg, 100, velocityUnits::pct);}
 
 void usercontrol(void) {
+
   thread clawStartingPosition = thread(goToDefault);
   thread intakeThread = thread(intakee);
   // L Controls
