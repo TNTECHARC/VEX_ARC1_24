@@ -34,3 +34,54 @@ void odom_constants(){
     chassis.boomerang_lead = .5;
     chassis.drive_min_voltage = 0;
 }
+
+CLAWSTATES autonState = START;
+
+void autonMoveClaw()
+{
+    autonState = START;
+    CLAWSTATES temp = START;
+    while(true)
+    {
+        claw.moveTo(autonState);
+
+        temp = autonState;
+        waitUntil(temp != autonState);
+    }
+}
+
+void initAutonThreads()
+{
+    thread autonClaw = thread(autonMoveClaw);
+    thread intakeThread = thread(intakee);
+}
+
+// Score Goal in negative zone
+void blue_Right()
+{
+    initAutonThreads();
+
+    // Obtain Goal
+    chassis.drive_distance(17);
+    chassis.turn_to_angle(45);
+    chassis.drive_distance(14);
+    doinker.set(true);
+    wait(300, msec);
+    chassis.drive_distance(-18);
+    doinker.set(false);
+    wait(100, msec);
+    chassis.turn_to_angle(215);
+    chassis.drive_distance(-17, 215, 6, 12);
+    wait(100, msec);
+    mog.set(true);
+    wait(500, msec);
+
+    // Get First Ring
+    chassis.turn_to_angle(135);
+    autonState = INTAKE;
+    intakeOn = true;
+    chassis.drive_distance(10);
+    chassis.drive_distance(5);
+    //intakeOn = false;
+
+}

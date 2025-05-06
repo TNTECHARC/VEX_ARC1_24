@@ -12,7 +12,7 @@ int find_Local_Goals_In_My_Area()
     {
         for (int i = 0; i < ai.objectCount; i++) 
         {
-            if(ai.objects[i].originY > 100 && ai.objects[i].height > 72)
+            if(ai.objects[i].originY > 100 && ai.objects[i].height > 70)
             {
                 if(ai.objects[i].centerX < 160)
                     leftGoalNumber += 1;

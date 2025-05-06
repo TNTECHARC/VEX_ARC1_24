@@ -29,7 +29,7 @@ void ClawMech::moveTo(CLAWSTATES state)
     while (!clawPID.is_settled()) 
     {
         // Get the current position (this should come from a sensor, such as an encoder)
-         double currentPosition = (LLift.position(deg) + RLift.position(deg))/2;
+        double currentPosition = (LLift.position(deg) + RLift.position(deg))/2;
 
         // Calculate error
         double error = state - currentPosition;

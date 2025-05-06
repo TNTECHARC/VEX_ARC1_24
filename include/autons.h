@@ -7,21 +7,7 @@ class ClawMech;
 extern Drive chassis;
 extern ClawMech claw;
 
-
-
-
-
-
 void default_constants();
-void stringIntake();
+//void odom_constants();
 
-void blueRouteMiddleGoal();
-void blueRouteLeftGoal();
-void blueRouteRightGoal();
-void blue_route_skills();
-
-
-void redRightAuto();
-void RedRouteMiddleGoal();
-
-void autonAITest();
+void blue_Right();
