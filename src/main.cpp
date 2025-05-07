@@ -142,13 +142,15 @@ void pre_auton() {
 
 
 void autonomous(void) {
+  Goal_AI AI;
+
   chassis.drive_distance(24);
   wait(2, sec);
 
   if(team_red)
   {
     //Red Team Auton
-    switch (find_Local_Goals_In_My_Area()) {
+    switch (AI.find_Local_Goals_In_My_Area()) {
       case 0:
         // No Goals
         break;
@@ -167,7 +169,7 @@ void autonomous(void) {
   else
   {
     //Blue Team Auton
-    switch (find_Local_Goals_In_My_Area()) {
+    switch (AI.find_Local_Goals_In_My_Area()) {
       case 0:
         // No Goals
         break;

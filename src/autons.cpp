@@ -128,15 +128,28 @@ void blue_Right()
     chassis.turn_to_angle(45);
     steak.set(false);
     wait(200, msec);
-    chassis.turn_to_angle(135);
+    chassis.turn_to_angle(130);
 
-    // Edging the corner
+    // Edging the corner for enemy rings
     autonState = TOP;
-    chassis.drive_distance(18);
+    chassis.drive_distance(12, 130, 4, 4);
     autonState = GRABTOP;
     wait(100, msec);
     steak.set(true);
-    chassis.drive_distance(-8);
+    wait(200, msec);
+    chassis.drive_distance(-9);
+    autonState = START;
+    steak.set(false);
+    autonState = INTAKE;
+    intakeOn = true;
+    wait(100, msec);
+    intakeOn = false;
+
+    autonState = SECOND;
+    chassis.drive_distance(9, 130, 4, 4);
+    steak.set(true);
+    wait(300, msec);
+    chassis.drive_distance(-9);
     autonState = START;
     steak.set(false);
     autonState = INTAKE;
