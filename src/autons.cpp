@@ -111,7 +111,7 @@ void blue_Right()
 
     // Fourth Ring
     chassis.turn_to_angle(180);
-    chassis.drive_distance(10);
+    chassis.drive_distance(9);
     chassis.turn_to_angle(135);
     autonState = START;
     chassis.drive_distance(20);
@@ -125,9 +125,11 @@ void blue_Right()
     intakeOn = false;
 
     // Drop current ring
+    autonState = INTAKE;
     chassis.turn_to_angle(45);
     steak.set(false);
     wait(200, msec);
+    autonState = TOP;
     chassis.turn_to_angle(130);
 
     // Edging the corner for enemy rings
@@ -142,11 +144,11 @@ void blue_Right()
     steak.set(false);
     autonState = INTAKE;
     intakeOn = true;
-    wait(100, msec);
+    wait(500, msec);
     intakeOn = false;
 
     autonState = SECOND;
-    chassis.drive_distance(9, 130, 4, 4);
+    chassis.drive_distance(12, 130, 4, 4);
     steak.set(true);
     wait(300, msec);
     chassis.drive_distance(-9);
@@ -156,5 +158,16 @@ void blue_Right()
     intakeOn = true;
     wait(100, msec);
     intakeOn = false;
+
+    // Drop Goal in Corner
+    doinker.set(true);
+    chassis.drive_distance(6);
+    chassis.turn_to_angle(210);
+    chassis.turn_to_angle(310);
+    doinker.set(false);
+    chassis.drive_distance(-10);
+    mog.set(false);
+    wait(100, msec);
+    chassis.drive_distance(10);
 
 }
