@@ -1,6 +1,6 @@
 #pragma once
 #include "vex.h"
-enum CLAWSTATES {START = 0, INTAKE = 70, SECOND = 110, THIRD = 159, PASSIVE = 91, WALL = 647, ALLIANCE = 475, SHOVE = 80};
+enum CLAWSTATES {START = 0, INTAKE = 75, SECOND = 110, THIRD = 159, PASSIVE = 91, TOP = 200, GRABTOP = 220, ALLIANCE = 475};
 
 
 class ClawMech

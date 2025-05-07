@@ -143,7 +143,7 @@ void pre_auton() {
 
 void autonomous(void) {
   chassis.drive_distance(24);
-  wait(3, sec);
+  wait(2, sec);
 
   if(team_red)
   {

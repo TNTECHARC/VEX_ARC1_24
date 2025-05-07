@@ -64,14 +64,15 @@ void blue_Right()
     // Obtain Goal
     chassis.drive_distance(17);
     chassis.turn_to_angle(45);
-    chassis.drive_distance(14);
+    chassis.drive_distance(15);
     doinker.set(true);
     wait(300, msec);
-    chassis.drive_distance(-18);
+    chassis.drive_distance(-19);
     doinker.set(false);
     wait(100, msec);
     chassis.turn_to_angle(215);
-    chassis.drive_distance(-17, 215, 6, 12);
+    wait(100, msec);
+    chassis.drive_distance(-17, 215, 4, 4);
     wait(100, msec);
     mog.set(true);
     wait(500, msec);
@@ -79,9 +80,68 @@ void blue_Right()
     // Get First Ring
     chassis.turn_to_angle(135);
     autonState = INTAKE;
-    intakeOn = true;
     chassis.drive_distance(10);
+    intakeOn = true;
     chassis.drive_distance(5);
-    //intakeOn = false;
+    intakeOn = false;
+
+    // Second Ring
+    chassis.turn_to_angle(40);
+    chassis.drive_distance(12);
+    doinker.set(true);
+    wait(300, msec);
+    chassis.drive_distance(-13);
+    doinker.set(false);
+    wait(100, msec);
+
+    chassis.turn_to_angle(25);
+    chassis.drive_distance(8);
+    intakeOn = true;
+    chassis.drive_distance(5);
+    intakeOn = false;
+
+    // Third Ring
+    chassis.drive_distance(-1);
+    chassis.turn_to_angle(270);
+    chassis.drive_distance(20);
+    intakeOn = true;
+    chassis.drive_distance(6, 270, 4, 4);
+    wait(100, msec);
+    intakeOn = false;
+
+    // Fourth Ring
+    chassis.turn_to_angle(180);
+    chassis.drive_distance(10);
+    chassis.turn_to_angle(135);
+    autonState = START;
+    chassis.drive_distance(20);
+    chassis.drive_distance(6, 135, 4, 4);
+    steak.set(true);
+    chassis.drive_distance(-8);
+    autonState = THIRD;
+    chassis.drive_distance(12);
+    intakeOn = true;
+    chassis.drive_distance(4, 135, 4, 4);
+    intakeOn = false;
+
+    // Drop current ring
+    chassis.turn_to_angle(45);
+    steak.set(false);
+    wait(200, msec);
+    chassis.turn_to_angle(135);
+
+    // Edging the corner
+    autonState = TOP;
+    chassis.drive_distance(18);
+    autonState = GRABTOP;
+    wait(100, msec);
+    steak.set(true);
+    chassis.drive_distance(-8);
+    autonState = START;
+    steak.set(false);
+    autonState = INTAKE;
+    intakeOn = true;
+    wait(100, msec);
+    intakeOn = false;
 
 }
