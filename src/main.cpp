@@ -153,16 +153,19 @@ void autonomous(void) {
     switch (AI.find_Local_Goals_In_My_Area()) {
       case 0:
         // No Goals
+        red_back_pos();
         break;
       case 1:
-        // Only Middle Goal
+        // Only Left Goal
+        red_middle_pos();
         break;
       case 2:
         // Only Right Goal
-        
+        red_front_pos();
         break;
       case 3:
         // Both Goals
+        red_front_pos();
         break;
     }
   }
@@ -172,16 +175,19 @@ void autonomous(void) {
     switch (AI.find_Local_Goals_In_My_Area()) {
       case 0:
         // No Goals
+        blue_back_neg();
         break;
       case 1:
-        // Only Middle Goal
+        // Only Left Goal
+        blue_middle_neg();
         break;
       case 2:
         // Only Right Goal
-        blue_Right();
+        blue_front_neg();
         break;
       case 3:
         // Both Goals
+        blue_front_neg();
         break;
     }
   }
@@ -272,6 +278,7 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+  inrot.resetPosition();
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 

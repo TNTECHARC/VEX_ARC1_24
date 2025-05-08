@@ -40,15 +40,15 @@ void intakee()
     
     if(intakeOn)
     {
-      intake.spin(fwd,100,pct);
+      intake.spin(fwd,80,pct); // Change back to 100 for 24 in
       wait(300,msec);
       do 
       {              
-        if(intake.power(powerUnits::watt) == 0)
+        /*if(intake.power(powerUnits::watt) == 0)
         {
           stuck = !stuck;
           intakeOn = false;
-        }
+        }*/
         wait(39, msec);                                                             
       } while (!(intakeOn == false));
       //waitUntil(intakeOn == false);

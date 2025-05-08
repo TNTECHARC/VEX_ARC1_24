@@ -19,7 +19,7 @@ int Goal_AI::find_Local_Goals_In_My_Area()
 }
 
 /// @brief Finds the number of goals in the robot's area.
-/// @return 0 = No Goals, 1 = Middle Goal, 2 = Right Goal, 3 = Both Goals
+/// @return 0 = No Goals, 1 = Left Goal, 2 = Right Goal, 3 = Both Goals
 int Goal_AI::find_Local_Goals_In_My_Area(int iteration)
 {
     int leftGoalNumber = 0;
@@ -41,7 +41,7 @@ int Goal_AI::find_Local_Goals_In_My_Area(int iteration)
     }
     
     if(leftGoalNumber >= 1 && rightGoalNumber == 0)
-        return 1; // Middle Goal
+        return 1; // Left Goal
     else if(leftGoalNumber == 0 && rightGoalNumber >= 1)
         return 2; // Right Goal
     else if(leftGoalNumber >= 1 && rightGoalNumber >= 1)

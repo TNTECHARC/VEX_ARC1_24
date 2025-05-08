@@ -8,6 +8,13 @@ extern Drive chassis;
 extern ClawMech claw;
 
 void default_constants();
-//void odom_constants();
 
-void blue_Right();
+// Blue Autons
+void blue_front_neg();
+void blue_middle_neg();
+void blue_back_neg();
+
+// Red Autons
+void red_front_pos();
+void red_middle_pos();
+void red_back_pos();

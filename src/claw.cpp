@@ -46,3 +46,8 @@ void ClawMech::moveTo(CLAWSTATES state)
     lift.stop(hold);
     currentState = state;
 }
+
+void ClawMech::setTimeout(float timeout)
+{
+    this->timeout = timeout;
+}

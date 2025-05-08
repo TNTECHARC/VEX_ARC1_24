@@ -1,6 +1,10 @@
 #pragma once
 #include "vex.h"
-enum CLAWSTATES {START = 0, INTAKE = 75, SECOND = 100, THIRD = 159, PASSIVE = 91, TOP = 220, GRABTOP = 220, ALLIANCE = 475};
+//24
+//enum CLAWSTATES {START = 0, INTAKE = 75, SECOND = 100, SECOND2 = 60, THIRD = 160, PASSIVE = 91, TOP = 220, GRABTOP = 220, ALLIANCE = 475, WALL = 647, BOTTOM = 25, SOMTHING = 120};
+
+//15
+enum CLAWSTATES {START = 0, INTAKE = 65, SECOND = 100, SECOND2 = 60, THIRD = 150, PASSIVE = 81, TOP = 225, GRABTOP = 220, ALLIANCE = 475, WALL = 647, BOTTOM = 25, SOMTHING = 120};
 
 
 class ClawMech
@@ -23,4 +27,5 @@ class ClawMech
         void setCurrentState(CLAWSTATES state);
 
         void moveTo(CLAWSTATES state);
+        void setTimeout(float timeout);
 };

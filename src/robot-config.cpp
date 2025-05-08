@@ -28,7 +28,7 @@ motor string = motor(PORT15, ratio6_1, false);
 motor_group intake = motor_group(Lin, Rin);
 led mog = led(Brain.ThreeWirePort.A);
 led rush = led(Brain.ThreeWirePort.H);
-rotation inrot = rotation(PORT5,true);
+rotation inrot = rotation(PORT5,false); // Switch back to false for the 24" lift
 led doinker = led(Brain.ThreeWirePort.D);
 
 aivision::colordesc Goal = aivision::colordesc(1, 147, 197, 83, 40, 1);
