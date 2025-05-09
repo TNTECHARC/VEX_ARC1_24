@@ -353,13 +353,6 @@ void red_front_pos()
 void red_middle_pos()
 {
     initAutonThreads();
-
-    chassis.turn_to_angle(40);
-}
-
-void red_middle_pos()
-{
-    initAutonThreads();
 }
 
 void red_back_pos()
