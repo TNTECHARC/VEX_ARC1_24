@@ -346,7 +346,7 @@ void red_front_pos()
     chassis.drive_distance(20);
 
 
-    //PUT CODE TO EMPTY BOTTOM AND THIRD RINGS ONTO GOAL / CLEAR GOAL / AND BUT GOAL INTO CORRNER
+   
 
 }
 
