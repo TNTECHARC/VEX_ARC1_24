@@ -176,6 +176,9 @@ void blue_front_neg()
     wait(100, msec);
     chassis.drive_distance(10);
 
+    //out of the way
+    autonState = THIRD;
+
 }
 
 void blue_middle_neg()
@@ -306,6 +309,9 @@ void blue_back_neg()
     mog.set(false);
     wait(500, msec);
     chassis.drive_distance(20,290, 4, 4);
+
+    //out of the way
+    autonState = THIRD;
 
 
 
@@ -443,6 +449,9 @@ void red_front_pos()
     mog.set(false);
     chassis.drive_distance(20);
 
+    //out of the way
+    autonState = THIRD;
+
 }
 
 void red_middle_pos()
@@ -564,5 +573,8 @@ void red_back_pos()
     mog.set(false);
     wait(300, msec);
     chassis.drive_distance(10);
+
+    //out of the way
+    autonState = THIRD;
 
 }
