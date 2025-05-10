@@ -41,6 +41,9 @@ void ClawMech::moveTo(CLAWSTATES state)
         lift.spin(forward, correction, voltageUnits::volt);
 
         // Sleep to control loop rate
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.print("Is running");
         wait(20, msec);
     }
     lift.stop(hold);

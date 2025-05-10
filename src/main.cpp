@@ -161,7 +161,7 @@ void autonomous(void) {
         break;
       case 1:
         // Only Left Goal
-        red_middle_pos();
+        red_back_pos();
         break;
       case 2:
         // Only Right Goal
@@ -223,15 +223,31 @@ void clampRing(){if(!Controller1.ButtonR1.pressing()) steak.set(!steak.value());
 
 void revIntake(){intake.spinFor(reverse, (78  /12 * 16 / 24) * 385, deg, 100, velocityUnits::pct);}
 
+void movingClaw()
+{
+  while(1)
+  {
+    //Manual Lift Control
+    if(Controller1.ButtonR1.pressing() && !Controller1.ButtonL1.pressing())
+      Lift.spin(fwd, 12, volt);
+    else if(Controller1.ButtonR2.pressing())
+      Lift.spin(reverse, 12, volt);
+    else if(canStopSpin)
+      Lift.stop(hold);
+  }
+}
+
 void usercontrol(void) {
 
-  vex::thread::interruptAll();
+  thread intakeThread = thread(intakee);
+  thread moveClawLift = thread(movingClaw);
 
-  thread clawStartingPosition = thread(goToDefault);
-  //thread intakeThread = thread(intakee);
+  claw.moveTo(START);
+  
+
   // L Controls
   Controller1.ButtonL1.pressed(goToDefault);
-  //Controller1.ButtonL1.pressed(spinIntake);
+  Controller1.ButtonL1.pressed(spinIntake);
   Controller1.ButtonL2.pressed(clampRing);
 
   // Goal Clamp
@@ -251,15 +267,6 @@ void usercontrol(void) {
   while (1) {
 
     chassis.control_arcade();
-
-
-    //Manual Lift Control
-    if(Controller1.ButtonR1.pressing() && !Controller1.ButtonL1.pressing())
-      Lift.spin(fwd, 12, volt);
-    else if(Controller1.ButtonR2.pressing())
-      Lift.spin(reverse, 12, volt);
-    else if(canStopSpin)
-      Lift.stop(hold);
 
 
     //Intake PID

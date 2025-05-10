@@ -28,7 +28,6 @@ extern led doinker;
 extern aivision::colordesc Goal;
 extern aivision ai;
 
-
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 

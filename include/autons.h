@@ -6,7 +6,6 @@ class ClawMech;
 
 extern Drive chassis;
 extern ClawMech claw;
-//bool isAutoRunning = false;
 
 void default_constants();
 
