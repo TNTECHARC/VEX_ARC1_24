@@ -109,7 +109,7 @@ ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 5, 100, 300)
 
 int current_auton_selection = 0;
 bool auto_started = false;
-bool team_red = true;
+bool team_red = false;
 
 /**
  * Function before autonomous. It prints the current auton number on the screen
@@ -144,7 +144,10 @@ void pre_auton() {
 void autonomous(void) {
   Goal_AI AI;
 
+  if(!team_red) doinker.set(true);
+  else doinker.set(false);  
   chassis.drive_distance(24);
+
   wait(2, sec);
 
   if(team_red)
@@ -175,14 +178,17 @@ void autonomous(void) {
     switch (AI.find_Local_Goals_In_My_Area()) {
       case 0:
         // No Goals
+        doinker.set(false);
         blue_back_neg();
         break;
       case 1:
         // Only Left Goal
+        doinker.set(false);
         blue_middle_neg();
         break;
       case 2:
         // Only Right Goal
+        doinker.set(false);
         blue_front_neg();
         break;
       case 3:

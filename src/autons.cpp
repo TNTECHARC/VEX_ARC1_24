@@ -181,6 +181,63 @@ void blue_front_neg()
 void blue_middle_neg()
 {
     initAutonThreads();
+
+    // Obtain 
+    chassis.turn_to_angle(345);
+    chassis.drive_distance(15);
+
+    // Get Goal
+    steak.set(true);
+    wait(100, msec);
+    autonState = THIRD;
+    chassis.turn_to_angle(322);
+    chassis.drive_distance(22);
+    doinker.set(true);
+    wait(500, msec);
+    chassis.drive_distance(-33);
+    doinker.set(false);
+    chassis.turn_to_angle(137);
+    wait(200, msec);
+    chassis.drive_distance(-20, 137, 4, 4);
+    mog.set(true);
+
+    // Intake First Ring
+    autonState = START;
+    wait(200, msec);
+    steak.set(false);
+    wait(100, msec);
+    autonState = INTAKE;
+    wait(200, msec);
+    intakeOn = true;
+    wait(100, msec);
+    intakeOn = false;
+    wait(300, msec);
+    //autonState = START;
+
+    // Get Second Ring
+    chassis.drive_distance(3);
+    chassis.turn_to_angle(90);
+    //autonState = INTAKE;
+    chassis.drive_distance(24);
+    intakeOn = true;
+    chassis.drive_distance(8, 90, 4, 4);
+    intakeOn = false;
+    autonState = BOTTOM;
+    chassis.drive_distance(-3);
+    chassis.turn_to_angle(180);
+
+    // Get Third Ring
+    autonState = START;
+    chassis.drive_distance(21, 180, 6, 6);
+    steak.set(true);
+    chassis.drive_distance(-7);
+    autonState = THIRD;
+    wait(200, msec);
+    chassis.drive_distance(8);
+    intakeOn = true;
+    chassis.drive_distance(3, 180, 3, 3);
+    intakeOn = false;
+
 }
 
 void blue_back_neg()
