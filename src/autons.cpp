@@ -191,43 +191,31 @@ void blue_back_neg()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------------------------------------------------------------------------//
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-// 15 in Red Routes
 
 void red_front_pos()
 {
     initAutonThreads();
     intakeOn = false;
-    autonState = INTAKE;
+    //autonState = INTAKE;
     
     //done to pick which route is used
     chassis.set_heading(90);
 
 
-    //match load stuff
+    // Get Goal
     steak.set(true);
-
-    //doinker.set(true);
-    //wait(700, msec);
     chassis.drive_distance(22);
-
-    //doinker.set(false);
     chassis.turn_to_angle(140);
-    chassis.drive_distance(14);
-    //doinker down
+    chassis.drive_distance(10);
     doinker.set(true);
     chassis.turn_to_angle(146);
-    chassis.drive_distance(-30, 146, 6, 6); //previously -24, -30works
-    //doinker up
+    chassis.drive_distance(-26, 146, 6, 6);
     doinker.set(false);
-    chassis.turn_to_angle(315); //last 326
-    chassis.drive_distance(-20, 315, 4, 4);//last -15, 20 works ish, -23works
-    //back clamp
+    chassis.turn_to_angle(315);
+    chassis.drive_distance(-20, 315, 4, 4);
     mog.set(true);
-    //wait(300, msec);
 
-    //Above is working
-
-    //match load stuff
+    // Intake Match load
     autonState = INTAKE;
     steak.set(false);
     wait(200, msec);
@@ -235,48 +223,35 @@ void red_front_pos()
     wait(200, msec);
     intakeOn = false;
 
-
-    // chassis.drive_distance(18, 326, 6, 6); //24
-    // chassis.turn_to_angle(180);//182
-
-    chassis.turn_to_angle(210); //225 is too right?
-    chassis.drive_distance(15, 210, 6, 6); //17
-
-    //intake top ring
-    
-    //chassis.drive_distance(26, 182, 6, 6); //previosly 23(too low)
-    
-    //wait(300, msec);
+    // Get First Ring
+    chassis.turn_to_angle(210);
+    autonState = START;
+    chassis.drive_distance(15, 210, 6, 6);
     steak.set(true);
-    //wait(300, msec);
     chassis.drive_distance(-7);
-    autonState = SOMTHING; //second is iffy
+    autonState = THIRD;
     wait(200, msec);
-    chassis.drive_distance(8); //10 mostly works
-    //wait(300, msec);
+    chassis.drive_distance(8);
     
     intakeOn = true;
-    chassis.drive_distance(7, 182, 3, 3);//formorly 5, 8 barly to high
-    //wait(300, msec);
+    chassis.drive_distance(7, 210, 3, 3);
     intakeOn = false;
-    chassis.drive_distance(3);
-
-    //newstuff
-    //chassis.drive_distance(6,182,6,6); // 18 is slightly to high
-    chassis.turn_to_angle(360);//360 works
-    steak.set(false);
-    wait(200, msec);
+    autonState = WALL;
+    chassis.drive_distance(10);
 
     //squares up
-    chassis.turn_to_angle(135);
-    chassis.drive_distance(12);//7 works, formorly 8
+    chassis.turn_to_angle(90);
+    autonState = THIRD;
+    wait(200, msec);
+    chassis.drive_distance(15);
+    intakeOn = true;
+    chassis.drive_distance(4, 90, 4, 4);
+    intakeOn = false;
+    chassis.drive_distance(-10);
 
     
     chassis.turn_to_angle(90); //formorly 110
-    autonState = BOTTOM;
-    chassis.drive_distance(3); //4 is what it was at
-
-    //fixed above
+    autonState = START;
     
     //ring stack on line
     chassis.drive_distance(7,90,3,3); // 6 doesnt cross
@@ -345,9 +320,6 @@ void red_front_pos()
     mog.set(false);
     chassis.drive_distance(20);
 
-
-   
-
 }
 
 void red_middle_pos()
@@ -358,4 +330,116 @@ void red_middle_pos()
 void red_back_pos()
 {
     initAutonThreads();
+
+    // Clamp preload
+    steak.set(true);
+    autonState = INTAKE;
+    wait(100, msec);
+
+    // Obtain Goal
+    chassis.drive_distance(-5.5);
+    chassis.turn_to_angle(90);
+    chassis.drive_distance(-19);
+    chassis.drive_distance(-10, 90, 4, 4);
+    mog.set(true);
+
+    // Intake preLoad
+    autonState = START;
+    wait(100, msec);
+    steak.set(false);
+    wait(100, msec);
+    autonState = INTAKE;
+    wait(200, msec);
+    intakeOn = true;
+    wait(100, msec);
+    intakeOn = false;
+    wait(300, msec);    
+
+    // Wall Stake
+    chassis.drive_distance(-15);
+    autonState = START;
+    chassis.turn_to_angle(125);
+    chassis.drive_distance(10, 125, 4, 4);
+    steak.set(true);
+    wait(100, msec);
+
+    chassis.drive_distance(-8);
+    autonState = ALLIANCE;
+    wait(200, msec);
+    chassis.turn_to_angle(150);
+    chassis.drive_distance(9);
+    wait(100, msec);
+    steak.set(false);
+    wait(100, msec);
+    chassis.drive_distance(-5);
+
+    // First Ring
+    autonState = START;
+    
+    chassis.turn_to_angle(64);
+    chassis.drive_distance(51);
+    chassis.drive_distance(5, 64, 4, 4);
+    steak.set(true);
+    wait(100, msec);
+    chassis.drive_distance(-6);
+    autonState = THIRD;
+    wait(200, msec);
+    chassis.drive_distance(8);
+    intakeOn = true;
+    chassis.drive_distance(8);
+    intakeOn = false;
+    wait(500, msec);
+
+    // Second Ring
+    steak.set(false);
+    wait(100, msec);
+    chassis.drive_distance(-1);
+    autonState = START;
+    chassis.turn_to_angle(180);
+    chassis.drive_distance(30);
+    steak.set(true);
+    chassis.drive_distance(-7);
+    steak.set(false);
+    wait(200, msec);
+    autonState = INTAKE;
+    wait(500, msec);
+    intakeOn = true;
+    wait(100, msec);
+    intakeOn = false;
+
+    // Edging the positive corner for rings
+    chassis.turn_to_angle(135);
+
+    autonState = THIRD;
+    chassis.drive_distance(18, 135, 5, 12);//18
+    steak.set(true);
+    wait(100, msec);
+    chassis.drive_distance(-3, 135, 3, 12);
+    autonState = WALL;
+    chassis.drive_distance(5, 135, 5, 12);
+    intakeOn = true;
+    wait(100, msec);
+    chassis.drive_distance(-10);
+    intakeOn = false;
+
+    autonState = START;
+    wait(300, msec);
+    steak.set(false);
+    wait(100, msec);
+    autonState = INTAKE;
+    wait(200, msec);
+    intakeOn = true;
+    wait(200, msec);
+    intakeOn = false;
+
+    doinker.set(true);
+    chassis.drive_distance(6);
+    chassis.left_swing_to_angle(70);
+    doinker.set(false);
+    chassis.turn_to_angle(315);
+    chassis.drive_distance(-13);
+    mog.set(false);
+    wait(300, msec);
+    chassis.drive_distance(10);
+
 }

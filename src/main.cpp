@@ -109,7 +109,7 @@ ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 5, 100, 300)
 
 int current_auton_selection = 0;
 bool auto_started = false;
-bool team_red = false;
+bool team_red = true;
 
 /**
  * Function before autonomous. It prints the current auton number on the screen
