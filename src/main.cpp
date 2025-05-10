@@ -193,8 +193,8 @@ void autonomous(void) {
         break;
       case 3:
         // Both Goals
+        doinker.set(false);
         blue_front_neg();
-        break;
     }
   }
 }
