@@ -109,7 +109,7 @@ ClawMech claw(motor_group(LLift, RLift), steak, 0.16, 0.1, 0.16, 0, 5, 100, 300)
 
 int current_auton_selection = 0;
 bool auto_started = false;
-bool team_red = false;
+bool team_red = true;
 
 /**
  * Function before autonomous. It prints the current auton number on the screen
@@ -149,6 +149,7 @@ void autonomous(void) {
   chassis.drive_distance(24);
 
   wait(2, sec);
+
 
   if(team_red)
   {
@@ -224,8 +225,10 @@ void revIntake(){intake.spinFor(reverse, (78  /12 * 16 / 24) * 385, deg, 100, ve
 
 void usercontrol(void) {
 
+  vex::thread::interruptAll();
+
   thread clawStartingPosition = thread(goToDefault);
-  thread intakeThread = thread(intakee);
+  //thread intakeThread = thread(intakee);
   // L Controls
   Controller1.ButtonL1.pressed(goToDefault);
   //Controller1.ButtonL1.pressed(spinIntake);
@@ -243,6 +246,7 @@ void usercontrol(void) {
 
 
   steak.set(false);
+  //isAutoRunning = false;
 
   while (1) {
 

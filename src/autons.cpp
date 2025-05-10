@@ -45,13 +45,19 @@ void autonMoveClaw()
     {
         claw.moveTo(autonState);
 
-        //temp = autonState;
-        //waitUntil(temp != autonState);
+        temp = autonState;
+        waitUntil(temp != autonState);
+
+        // if(isAutoRunning == false)
+        // {
+        //     break;
+        // }
     }
 }
 
 void initAutonThreads()
 {
+    //isAutoRunning = true;
     thread autonClaw = thread(autonMoveClaw);
     thread intakeThread = thread(intakee);
 }
