@@ -143,65 +143,60 @@ void pre_auton() {
 
 void autonomous(void) {
   Goal_AI AI;
-  doinker.set(true);
-  chassis.drive_distance(24);
-  
-  wait(2, sec);
-  doinker.set(false);
-  blue_back_neg();
 
-  // if(team_red)
-  // {
-  //   //Red Team Auton
-  //   switch (AI.find_Local_Goals_In_My_Area()) {
-  //     case 0:
-  //       // No Goals
-  //       doinker.set(false);
-  //       red_back_pos();
-  //       break;
-  //     case 1:
-  //       // Only Left Goal
-  //       doinker.set(false);
-  //       red_middle_pos();
-  //       break;
-  //     case 2:
-  //       // Only Right Goal
-  //       doinker.set(false);
-  //       red_front_pos();
-  //       break;
-  //     case 3:
-  //       // Both Goals
-  //       doinker.set(false);
-  //       red_front_pos();
-  //       break;
-  //   }
-  // }
-  // else
-  // {
-  //   //Blue Team Auton
-  //   switch (AI.find_Local_Goals_In_My_Area()) {
-  //     case 0:
-  //       // No Goals
-  //       doinker.set(false);
-  //       blue_back_neg();
-  //       break;
-  //     case 1:
-  //       // Only Left Goal
-  //       doinker.set(false);
-  //       blue_middle_neg();
-  //       break;
-  //     case 2:
-  //       // Only Right Goal
-  //       doinker.set(false);
-  //       blue_front_neg();
-  //       break;
-  //     case 3:
-  //       // Both Goals
-  //       doinker.set(false);
-  //       blue_front_neg();
-  //       break;
-  //   }
-  // }
+  if(!team_red) doinker.set(true);
+  else doinker.set(false);  
+  chassis.drive_distance(24);
+
+  wait(2, sec);
+
+  if(team_red)
+  {
+    //Red Team Auton
+    switch (AI.find_Local_Goals_In_My_Area()) {
+      case 0:
+        // No Goals
+        red_back_pos();
+        break;
+      case 1:
+        // Only Left Goal
+        red_middle_pos();
+        break;
+      case 2:
+        // Only Right Goal
+        red_front_pos();
+        break;
+      case 3:
+        // Both Goals
+        red_front_pos();
+        break;
+    }
+  }
+  else
+  {
+    //Blue Team Auton
+    switch (AI.find_Local_Goals_In_My_Area()) {
+      case 0:
+        // No Goals
+        doinker.set(false);
+        blue_back_neg();
+        break;
+      case 1:
+        // Only Left Goal
+        doinker.set(false);
+        blue_middle_neg();
+        break;
+      case 2:
+        // Only Right Goal
+        doinker.set(false);
+        blue_front_neg();
+        break;
+      case 3:
+        // Both Goals
+        doinker.set(false);
+        blue_front_neg();
+    }
+  }
 }
 
 /*---------------------------------------------------------------------------*/
